@@ -5,14 +5,17 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
 	public float SpeedFactor = 60f;
+	public float CharacterSpeed = 1f;
 
 	public GOBs.Goal Goal_Eat;
-	public GOBs.Goal Goal_Bathroom;
+	public GOBs.Goal Goal_Sleep;
+	public GOBs.Goal Goal_Fun;
 	public GOBs.Goal[] Goals;
 
 	public GOBs.Action Action_EatSnack;
 	public GOBs.Action Action_EatMeal;
-	public GOBs.Action Action_VisitBathroom;
+	public GOBs.Action Action_BedSleep;
+	public GOBs.Action Action_PlaySoccer;
 	public GOBs.Action[] Actions;
 
 	
@@ -35,16 +38,24 @@ public class Character : MonoBehaviour
 			changeRate = 4f*60f /SpeedFactor,
 		};
 
-		Goal_Bathroom = new()
+		Goal_Sleep = new()
 		{
-			name = "Bathroom",
+			name = "Sleep",
 			value = 8f, //3f,
-			changeRate = 2f*60f /SpeedFactor,
+			changeRate = 1f*60f /SpeedFactor,
+		};
+
+		Goal_Fun = new()
+		{
+			name = "Fun",
+			value = 8f, //3f,
+			changeRate = 3f*60f /SpeedFactor,
 		};
 
 		Goals = new GOBs.Goal[] {
 			Goal_Eat,
-			Goal_Bathroom,
+			Goal_Sleep,
+			Goal_Fun,
 		};
 
 
@@ -72,22 +83,35 @@ public class Character : MonoBehaviour
 			duration = 1f*60f*60f /SpeedFactor,
 		};
 
-		Action_VisitBathroom = new()
+		Action_BedSleep = new()
 		{
-			name = "VisitBathroom",
+			name = "BedSleep",
 			targetGoals = new GOBs.Goal[] {
-				Goal_Bathroom,
+				Goal_Sleep,
+			},
+			changes = new float[] {
+				-8f,
+			},
+			duration = 4f*60f*60f /SpeedFactor,
+		};
+
+		Action_PlaySoccer = new()
+		{
+			name = "PlaySoccer",
+			targetGoals = new GOBs.Goal[] {
+				Goal_Fun,
 			},
 			changes = new float[] {
 				-4f,
 			},
-			duration = 15f*60f /SpeedFactor,
+			duration = 30f*60f /SpeedFactor,
 		};
 
 		Actions = new GOBs.Action[] {
 			Action_EatSnack,
 			Action_EatMeal,
-			Action_VisitBathroom,
+			Action_BedSleep,
+			Action_PlaySoccer,
 		};
 	}
 }
